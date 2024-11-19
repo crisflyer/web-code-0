@@ -3,134 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>网页示例</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>生日祝福贺卡</title>
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            background: url('tou.png') no-repeat center center / cover;
-            font-family: Arial, sans-serif;
-        }
-
-        .container {
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('birthday.jpg'); /* 设置自定义背景图片 */
+            background-size: cover;
+            background-position: center;
+            color: #fff;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100%;
-            color: white;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
         }
 
-        .content {
+        .card {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            border-radius: 15px;
+            width: 80%;
+            max-width: 600px;
             text-align: center;
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: 20px;
-            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
 
-        button {
+        /* 使所有文本应用渐变色 */
+        .card h1, .card p {
+            font-size: 36px;
+            margin: 0;
+            background: linear-gradient(to right, #ff66cc, #00aaff); /* 深粉色到天蓝色渐变 */
+            -webkit-background-clip: text; /* 使背景仅应用于文字 */
+            color: transparent; /* 让文字本身透明，显示渐变背景 */
+        }
+
+        .card p {
+            font-size: 18px;
+            margin-top: 15px;
+        }
+
+        .button {
+            background-color: #ff7e5f;
+            color: white;
             padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
             font-size: 16px;
             cursor: pointer;
-            border: none;
-            background-color: #f1c40f;
-            color: white;
-            border-radius: 5px;
+            margin-top: 20px;
             transition: background-color 0.3s;
         }
 
-        button:hover {
-            background-color: #e67e22;
+        .button:hover {
+            background-color: #feb47b;
         }
 
-        .modal {
+        .message {
             display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            width: 300px;
-            text-align: center;
-        }
-
-        .close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 30px;
-            cursor: pointer;
+            font-size: 20px;
+            margin-top: 20px;
             color: #333;
         }
 
-        .close:hover {
-            color: red;
+        /* 音乐按钮 */
+        .music-button {
+            background-color: #feb47b;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .music-button:hover {
+            background-color: #ff7e5f;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="content">
-            <h1>欢迎来到我的网页！</h1>
-            <button id="showBoxBtn">点击我</button>
-        </div>
-    </div>
 
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span id="closeBtn" class="close">&times;</span>
-            <p id="modalContent">这里是弹出的盒子内容！</p>
-        </div>
-    </div>
+    <div class="card">
+        <h1>生日快乐！</h1>
+        <p>嘿嘿，咱们认识很长时间了，客套话我就少说了。我们毕业之后无论是上岸还是工作，我们见面的机会大抵是很少了，甚至很难再见一面。</p>
+        <p>但是我们是好朋友，就像那时候你跟我说的，我也不知道我们联系在一起的由头是什么，大概是缘分或者其他什么吧。</p>
+        <p>我口才和文笔不好，别介意，希望我们能保持联系，友谊长存！</p>
+        <button class="button" onclick="showMessage()">小惊喜</button>
 
-    <audio id="backgroundMusic" loop>
-        <source src="caihui.mp3" type="audio/mp3">
-        您的浏览器不支持音频播放。
-    </audio>
+        <div id="message" class="message">
+            <p>🎉 好啦，虽然麻烦点，但是还是得你自己去拿快递喽【xxx-x-xxxx】！ 🎉</p>
+        </div>
+
+        <!-- 音乐播放按钮 -->
+        <button class="music-button" onclick="toggleMusic()">播放音乐</button>
+
+        <!-- 音频元素 -->
+        <audio id="backgroundAudio" loop>
+            <source src="birthday.mp3" type="audio/mp3">
+            您的浏览器不支持音频播放。
+        </audio>
+    </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const showBoxBtn = document.getElementById('showBoxBtn');
-            const modal = document.getElementById('modal');
-            const closeBtn = document.getElementById('closeBtn');
-            const modalContent = document.getElementById('modalContent');
-            const backgroundMusic = document.getElementById('backgroundMusic');
+        // 显示祝福信息
+        function showMessage() {
+            const message = document.getElementById('message');
+            message.style.display = 'block';
+        }
 
-            if (!showBoxBtn || !modal || !closeBtn) {
-                console.error("元素未找到，检查HTML结构");
-                return;
-            }
+        // 切换音乐播放和暂停
+        function toggleMusic() {
+            const audio = document.getElementById('backgroundAudio');
+            const musicButton = document.querySelector('.music-button');
 
-            showBoxBtn.onclick = () => {
-                modalContent.innerText = "这是您提前书写的文字！";
-                modal.style.display = 'flex';
-                backgroundMusic.play(); // 播放音乐
+            if (audio.paused) {
+                audio.play(); // 播放音乐
+                musicButton.textContent = '暂停音乐'; // 更新按钮文本
+            } else {
+                audio.pause(); // 暂停音乐
+                musicButton.textContent = '播放音乐'; // 更新按钮文本
             }
-
-            closeBtn.onclick = () => {
-                modal.style.display = 'none';
-                backgroundMusic.pause(); // 暂停音乐
-                backgroundMusic.currentTime = 0; // 重置音乐为开始位置
-            }
-
-            window.onclick = (event) => {
-                if (event.target === modal) {
-                    modal.style.display = 'none';
-                    backgroundMusic.pause(); // 暂停音乐
-                    backgroundMusic.currentTime = 0; // 重置音乐为开始位置
-                }
-            }
-        });
+        }
     </script>
+
 </body>
 </html>
